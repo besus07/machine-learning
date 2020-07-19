@@ -1,0 +1,11 @@
+position,level,salary
+business analyst,1,45000
+jr.consultant,2,50000
+Sr.consultant,3,60000
+Manager,4,80000
+Count.manager,5,110000
+Region manager,6,150000
+partner,7,200000
+sr.Partner,8,300000
+C-level,9,500000
+CEO,10,1000000
