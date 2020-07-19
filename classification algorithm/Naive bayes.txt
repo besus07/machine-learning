@@ -1,0 +1,37 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dataset=pd.read_csv("Social_Network_Ads.csv")
+x=dataset.iloc[0:,2:4].values
+y=dataset.iloc[0:,4].values
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test =train_test_split(x,y,test_size = 0.25,random_state=0)
+
+#fearture Scaling 
+from sklearn.preprocessing import StandardScaler
+sc_x=StandardScaler()
+sc_y=StandardScaler()
+x=sc_x.fit_transform(x)
+y=sc_y.fit_transform(np.array(y).reshape(-1,1))
+
+
+from sklearn.naive_bayes import GaussianNB
+NB=GaussianNB(priors=None, var_smoothing=1e-9)
+NB.fit(x_train,y_train)
+
+y_pred=NB.predict(x_test)
+
+from sklearn.metrics import confusion_matrix
+class1=confusion_matrix(y_pred,y_test)
+
+from mlxtend.plotting import plot_decision_regions
+plot_decision_regions(x_train,y_train,NB)
+
+plt.scatter(x_train,y_train,color='R')
+#plt.plot(x,NB.predict(x),color='y')
+plt.title('Truth or Lie')
+plt.xlabel('Experience')
+plt.ylabel('Salary')
+plt.show()
