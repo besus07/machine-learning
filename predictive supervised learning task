@@ -1,0 +1,33 @@
+import dataset
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+​
+dataset=pd.read_csv('task11.csv')
+x=dataset.iloc[:,0:1].values
+y=dataset.iloc[:,1].values
+splitting of dataset in test and train split
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.6,random_state=0)
+fitting of regression model
+from sklearn.linear_model import LinearRegression
+regressor=LinearRegression()
+regressor.fit(x_train,y_train)
+y_pred=regressor.predict(x_test)
+check regressor Score
+print(regressor.score(x,y))
+0.9478727101332001
+prediction after training a model
+hours=9.25
+test=[[hours]]
+pred = regressor.predict(test)
+print("if student studied {} hr/day then may be he/she scored {} %".format(hours,round(pred[0],2)))
+if student studied 9.25 hr/day then may be he/she scored 93.8 %
+Data visualization
+plt.scatter(x,y,color='red')
+plt.plot(x_test,y_pred,color='blue')
+plt.scatter(test,pred,color='green',s=100)
+plt.xlabel('No. of study Hour')
+plt.ylabel('Score')
+​
+plt.show()
